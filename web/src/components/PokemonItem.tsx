@@ -19,14 +19,12 @@ export const PokemonItem = ({ pokemon }: PokemonItemProps) => {
   const ShowSprite = useCallback(() => {
     if (showSprite) {
       return (
-        <Modal
-          opened={showSprite}
-          onClose={() => setShowSprite(false)}
-          title={pokemon.name}
-          size="xs"
-        >
-          <PokemonSprite src={pokemon.sprites.front_default} />
-        </Modal>
+        <PokemonSprite
+          name={pokemon.name}
+          src={pokemon.sprites.front_default}
+          setShowSprite={setShowSprite}
+          showSprite={showSprite}
+        />
       );
     }
 

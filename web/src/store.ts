@@ -12,16 +12,10 @@ const getPokemon = async <T>(name: string): Promise<T> => {
 
 export const pokemonsAtom = atom<Pokemon[]>([]);
 export const getPokemonsAtoms = atom((get) => get(pokemonsAtom));
+
 export const fetchPokemonsAtom = atom(
   (get) => get(pokemonsAtom),
-  async (get, set, name: string) => {
-    if (get(pokemonsAtom).length > 1) {
-      set(pokemonsAtom, []);
-    }
-
-    const isAlreadyFetched = get(pokemonsAtom).find((p) => p.name === name);
-    if (isAlreadyFetched) return;
-
+  async (_, set, name: string) => {
     const pokemon = await getPokemon<Pokemon>(name);
 
     set(pokemonsAtom, [pokemon]);
@@ -43,6 +37,6 @@ export const fetchTypePokemonsAtom = atom(
 
     const pokemonsData = await Promise.all(pokemonsPromises);
 
-    set(pokemonsAtom, (prev) => pokemonsData);
+    set(pokemonsAtom, () => pokemonsData);
   },
 );

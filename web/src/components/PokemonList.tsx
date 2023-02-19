@@ -7,9 +7,13 @@ export const PokemonList = () => {
 
   return (
     <>
-      {pokemons.map((pokemon) => (
-        <PokemonItem pokemon={pokemon} />
-      ))}
+      {pokemons.length > 0 ? (
+        pokemons.map((pokemon) => <PokemonItem pokemon={pokemon} />)
+      ) : (
+        <tr>
+          <td>No Pokemons for you</td>
+        </tr>
+      )}
     </>
   );
 };
